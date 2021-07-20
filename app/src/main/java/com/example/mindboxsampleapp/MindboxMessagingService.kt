@@ -23,7 +23,7 @@ class MindboxMessagingService:FirebaseMessagingService() {
         if (!messageWasHandled) {
             // Если пуш был не от Mindbox или в нем некорректные данные, то можно написать фолбе для его обработки
         }
-        super.onMessageReceived(remoteMessage)
+
     }
 
     override fun onNewToken(token: String) {
