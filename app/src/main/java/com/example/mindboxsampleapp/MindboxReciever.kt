@@ -10,7 +10,7 @@ class MindboxReciever : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
         // Handle action on push clicked, for example,
-        val activityIntent = Intent(context, Activity::class.java).apply {
+        val activityIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
             putExtra(Mindbox.IS_OPENED_FROM_PUSH_BUNDLE_KEY, true)
         }

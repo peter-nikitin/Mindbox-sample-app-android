@@ -14,6 +14,7 @@ import android.view.MenuItem
 import com.example.mindboxsampleapp.databinding.ActivityMainBinding
 import cloud.mindbox.mobile_sdk.Mindbox
 import cloud.mindbox.mobile_sdk.MindboxConfiguration
+import cloud.mindbox.mobile_sdk.logger.Level
 
 
     class MainActivity : AppCompatActivity() {
@@ -27,14 +28,20 @@ import cloud.mindbox.mobile_sdk.MindboxConfiguration
         val configuration = MindboxConfiguration.Builder(
             applicationContext,
             "api.mindbox.ru",
-            "mpush-test-ios-sandbox-docs" )
+            "mpush-test-android-sandbox-docs" )
             .subscribeCustomerIfCreated(true)
             .build()
 
         Mindbox.init(applicationContext, configuration)
-
+Mindbox.setLogLevel(Level.VERBOSE)
         Mindbox.subscribeDeviceUuid {
             deviceUUID -> Log.println(Log.INFO, "MindboxDeviceUUID", deviceUUID)
+        }
+        Mindbox.subscribeFmsToken {
+            fmsToken ->
+            if (fmsToken != null) {
+                Log.println(Log.INFO, "MindboxFmsToken", fmsToken)
+            }
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
