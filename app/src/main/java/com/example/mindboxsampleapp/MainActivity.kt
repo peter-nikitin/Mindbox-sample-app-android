@@ -1,5 +1,6 @@
-    package com.example.mindboxsampleapp
+package com.example.mindboxsampleapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Printer
@@ -17,7 +18,7 @@ import cloud.mindbox.mobile_sdk.MindboxConfiguration
 import cloud.mindbox.mobile_sdk.logger.Level
 
 
-    class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -28,17 +29,18 @@ import cloud.mindbox.mobile_sdk.logger.Level
         val configuration = MindboxConfiguration.Builder(
             applicationContext,
             "api.mindbox.ru",
-            "mpush-test-android-sandbox-docs" )
+            "mpush-test-android-sandbox-docs"
+        )
             .subscribeCustomerIfCreated(true)
             .build()
 
         Mindbox.init(applicationContext, configuration)
-Mindbox.setLogLevel(Level.VERBOSE)
+        Mindbox.setLogLevel(Level.VERBOSE)
         Mindbox.subscribeDeviceUuid {
-            deviceUUID -> Log.println(Log.INFO, "MindboxDeviceUUID", deviceUUID)
+                deviceUUID -> Log.println(Log.INFO, "MindboxDeviceUUID", deviceUUID)
         }
         Mindbox.subscribeFmsToken {
-            fmsToken ->
+                fmsToken ->
             if (fmsToken != null) {
                 Log.println(Log.INFO, "MindboxFmsToken", fmsToken)
             }
@@ -54,25 +56,37 @@ Mindbox.setLogLevel(Level.VERBOSE)
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+// Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+// Handle action bar item clicks here. The action bar will
+// automatically handle clicks on the Home/Up button, so long
+// as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+     fun handleIntent(intent: Intent) {
+         val uniqKey = intent.getStringExtra("uniqKey");
+         val buttonUniqKey = intent.getStringExtra("buttonUniqKey");
+
+         if (uniqKey != null) {
+             if (uniqKey != buttonUniqKey) {
+                 Mindbox.onPushClicked(applicationContext, uniqKey, buttonUniqKey  )
+             }
+             Mindbox.onPushClicked(applicationContext, uniqKey, ""  )
+         }
+     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
