@@ -363,7 +363,7 @@ class BasicOperations {
                             basePricePerItem = 100.0,
                             quantity = 100.1.toDouble(),
                             discountedPricePerLine = 100.0,
-                            lineId = 1,
+                            lineId = "1",
                             lineNumber = 1,
                             discounts = arrayListOf(
                                 DiscountRequest(
@@ -490,7 +490,7 @@ class BasicOperations {
                             basePricePerItem = 100.0,
                             quantity = 100.1.toDouble(),
                             discountedPricePerLine = 100.0,
-                            lineId = 1,
+                            lineId = "1",
                             lineNumber = 1,
                             discounts = arrayListOf(
                                 DiscountRequest(
