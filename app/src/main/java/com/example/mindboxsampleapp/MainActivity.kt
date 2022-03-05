@@ -23,28 +23,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let { Mindbox.onPushClicked(this, it) }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val configuration = MindboxConfiguration.Builder(
-            applicationContext,
-            "api.mindbox.ru",
-            "mpush-test-android-sandbox-docs"
-        )
-            .subscribeCustomerIfCreated(true)
-            .build()
+        intent?.let { Mindbox.onPushClicked(this, it) }
 
-        Mindbox.init(applicationContext, configuration)
-        Mindbox.setLogLevel(Level.VERBOSE)
-        Mindbox.subscribeDeviceUuid {
-                deviceUUID -> Log.println(Log.INFO, "MindboxDeviceUUID", deviceUUID)
-        }
-        Mindbox.subscribeFmsToken {
-                fmsToken ->
-            if (fmsToken != null) {
-                Log.println(Log.INFO, "MindboxFmsToken", fmsToken)
-            }
-        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -76,17 +64,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-     fun handleIntent(intent: Intent) {
-         val uniqKey = intent.getStringExtra("uniqKey");
-         val buttonUniqKey = intent.getStringExtra("buttonUniqKey");
-
-         if (uniqKey != null) {
-             if (uniqKey != buttonUniqKey) {
-                 Mindbox.onPushClicked(applicationContext, uniqKey, buttonUniqKey  )
-             }
-             Mindbox.onPushClicked(applicationContext, uniqKey, ""  )
-         }
-     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
