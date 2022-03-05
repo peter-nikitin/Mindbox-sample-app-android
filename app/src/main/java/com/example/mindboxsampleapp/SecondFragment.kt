@@ -32,9 +32,7 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val operations = BasicOperations();
         binding.buttonSecond.setOnClickListener {
-            operations.authorizeCustomer();
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }

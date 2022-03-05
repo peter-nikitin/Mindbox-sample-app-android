@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import cloud.mindbox.mobile_sdk.Mindbox
 import com.example.mindboxsampleapp.databinding.FragmentFirstBinding
 
 /**
@@ -32,6 +33,8 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Mindbox.subscribeDeviceUuid { device ->  binding.textviewFirst.text = device }
 
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
