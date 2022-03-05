@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -18,8 +18,21 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
+    signingConfigs {
+        config {
+            storeFile file('/Users/nikitin/Documents/Apps/Mindbox-Samples/Mindbox-sample-app-android/key')
+            storePassword '1234567890'
+            keyPassword '1234567890'
+            keyAlias 'key0'
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -45,10 +58,16 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-analytics:+'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'cloud.mindbox:mobile-sdk:1.0.37'
+    implementation 'cloud.mindbox:mobile-sdk:2.0.1'
+    implementation 'cloud.mindbox:mindbox-huawei:2.0.1'
+    implementation 'cloud.mindbox:mindbox-firebase:2.0.1'
+    implementation 'com.huawei.hms:push:5.0.4.302'
 }
+
+apply plugin: 'com.huawei.agconnect'
