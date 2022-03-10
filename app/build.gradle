@@ -64,9 +64,9 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'cloud.mindbox:mobile-sdk:2.0.1'
-    implementation 'cloud.mindbox:mindbox-huawei:2.0.1'
-    implementation 'cloud.mindbox:mindbox-firebase:2.0.1'
+    implementation 'cloud.mindbox:mobile-sdk:2.1.0'
+    implementation 'cloud.mindbox:mindbox-huawei:2.1.0'
+    implementation 'cloud.mindbox:mindbox-firebase:2.1.0'
     implementation 'com.huawei.hms:push:5.0.4.302'
 }
 
